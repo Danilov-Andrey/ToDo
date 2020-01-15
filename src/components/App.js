@@ -16,22 +16,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
 `
 
-class App extends React.Component {
-
-  state = {
-    currentTask: null
-  }
-
-  findTask = (taskName) => {
-    const tasks = localStorage.getItem('tasks')
-    const userTask = tasks.filter(task => task.task === taskName)
-    if (userTask.length === 0) {
-      return
-    } else {
-      this.setState({currentTask: userTask})
-    }
-  }
-  
+class App extends React.Component {  
   render(){
     return (
      <div className="App">
