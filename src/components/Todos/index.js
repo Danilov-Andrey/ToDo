@@ -20,9 +20,8 @@ const Tasks = styled.ul`
 export class Todos extends React.Component {
   state = {
     tasks: [],
-    error: null,
-    searchMode: false
-  }
+    error: null
+   }
 
   componentDidMount(){
     this.loadTasks()
@@ -34,7 +33,7 @@ export class Todos extends React.Component {
       const tasks = JSON.parse(localStorage.getItem('tasks'))       
       const userTask = tasks.filter(task => task.task === taskName)
       if (userTask.length === 0) {
-        this.setState({error: "Task not found!", searchMode: false})
+        this.setState({error: "Task not found!"})
         return
       } else {
         this.setState({tasks: userTask, error: null, searchMode: true})
@@ -49,7 +48,7 @@ export class Todos extends React.Component {
 
   loadTasks = () => {
     const tasks = JSON.parse(localStorage.getItem('tasks'))
-    this.setState({tasks, error: null, searchMode: false})
+    this.setState({tasks, error: null})
   }
 
   onDeleteTodo = (id) => {
