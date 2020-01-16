@@ -44,6 +44,7 @@ export class Todos extends React.Component {
 
   componentWillUnmount() {
     this.userInputSearch$.unsubscribe()
+    this.newTask$.unsubscribe()
   }
 
   loadTasks = () => {
