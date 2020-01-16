@@ -36,7 +36,7 @@ export class Todos extends React.Component {
         this.setState({error: "Task not found!"})
         return
       } else {
-        this.setState({tasks: userTask, error: null, searchMode: true})
+        this.setState({tasks: userTask, error: null})
       }}
     )
     this.newTask$ = addTask$.subscribe(() => this.loadTasks())
@@ -81,7 +81,6 @@ export class Todos extends React.Component {
   render(){
     const { tasks, error } = this.state
     let output;
-    console.log(typeof localStorage)
     if (error !== null) {
       output = <Error>{error}</Error>
     } else if (tasks.length === 0) {
