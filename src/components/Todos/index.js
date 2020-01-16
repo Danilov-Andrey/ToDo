@@ -48,7 +48,11 @@ export class Todos extends React.Component {
 
   loadTasks = () => {
     const tasks = JSON.parse(localStorage.getItem('tasks'))
-    this.setState({tasks, error: null})
+    if (tasks === null) {
+      this.setState({tasks: [], error: null})
+    } else {
+      this.setState({tasks, error: null})
+    }
   }
 
   onDeleteTodo = (id) => {
@@ -77,7 +81,7 @@ export class Todos extends React.Component {
   render(){
     const { tasks, error } = this.state
     let output;
-    
+    console.log(typeof localStorage)
     if (error !== null) {
       output = <Error>{error}</Error>
     } else if (tasks.length === 0) {
