@@ -80,8 +80,7 @@ export class Todos extends React.Component {
     
     if (error !== null) {
       output = <Error>{error}</Error>
-    }
-    else if (tasks.length === 0) {
+    } else if (tasks.length === 0) {
       output = <NoTasks>No tasks</NoTasks>
     } else {
       output = 
