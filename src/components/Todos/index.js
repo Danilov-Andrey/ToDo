@@ -30,7 +30,11 @@ export class Todos extends React.Component {
         this.loadTasks()
         return
       }
-      const tasks = JSON.parse(localStorage.getItem('tasks'))       
+      const tasks = JSON.parse(localStorage.getItem('tasks'))      
+      if (tasks === null) {
+        this.setState({error: "No tasks were found!"})
+        return
+      } 
       const userTask = []
       tasks.map(task => {
         if (task.task.toLowerCase().indexOf(taskName.toLowerCase()) != -1){
