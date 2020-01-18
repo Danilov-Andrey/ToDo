@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Subject } from 'rxjs';
 
 const Form = styled.form`
   width: 80%;
@@ -25,23 +24,15 @@ const Error = styled.p`
   margin-bottom: 0;
 `
 
-export const addTask$ = new Subject()
-
-export const Add = () => { 
+export const Add = ({setTodos, todos}) => { 
   const [task, setTask] = useState('')
   const [error, setError] = useState(null)
 
   const onAdd = (e) => {
     e.preventDefault()
     if (task.trim().length > 5){
-      let tasks = JSON.parse(localStorage.getItem('tasks'))
-      if( tasks === null ){
-        tasks = [{task, id: getRandomInt(), completed: false}]
-      } else {
-        tasks = [...tasks, {task, id: getRandomInt(), completed: false}]  
-      }
-      localStorage.setItem('tasks', JSON.stringify(tasks)) 
-      addTask$.next()
+      const tasks = [...todos, {task, id: getRandomInt(), completed: false}]        
+      setTodos(tasks) 
       setTask('')
       setError(null)  
     } else {
@@ -50,7 +41,7 @@ export const Add = () => {
   }
 
   const getRandomInt = () => {
-    return Math.floor(Math.random() * Math.floor(10000)) + Date.now()
+    return Date.now()
   }
 
 
@@ -66,10 +57,10 @@ export const Add = () => {
 
     return(
       <>
-      <Form onSubmit={e => onAdd(e)}> 
-          <Input type="text" value={task} placeholder="Enter your important task!" onChange={e => userTask(e)}/>
-          <Button type="submit">Add</Button>      
-      </Form>
+        <Form onSubmit={e => onAdd(e)}> 
+            <Input type="text" value={task} placeholder="Enter your important task!" onChange={e => userTask(e)}/>
+            <Button type="submit">Add</Button>      
+        </Form>
         {error ? <Error>{error}</Error> : null}
       </>
     )

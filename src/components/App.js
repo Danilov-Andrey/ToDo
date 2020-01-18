@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Header } from './Header'
 import { Search } from './Search'
@@ -17,13 +17,16 @@ const Wrapper = styled.div`
 `
 
 const App = () => {  
+    const [searchTodo, setSearchTodo] = useState('')
+    const [todos, setTodos] = useState([])
+
     return (
      <div className="App">
       <Header/>
       <Wrapper>
-        <Search/>
-        <Add/>
-        <Todos/>
+        <Search setSearchTodo={setSearchTodo}/>
+        <Add setTodos={setTodos} todos={todos}/>
+        <Todos searchTodo={searchTodo} todos={todos}/>
       </Wrapper>
     </div>
     )

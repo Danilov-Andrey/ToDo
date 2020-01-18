@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { fromEvent, of, Subject } from 'rxjs'
+import { fromEvent, of } from 'rxjs'
 import { delay, map, switchMap } from 'rxjs/operators'
 
 const Input = styled.input`
@@ -8,9 +8,7 @@ const Input = styled.input`
   margin: 0 auto;
 `
 
-export const findTask$ = new Subject()
-
-export const Search = () => {  
+export const Search = ({setSearchTodo}) => {  
   const searchRef = useRef(null)
   useEffect(() => {    
     const search$ = fromEvent(searchRef.current, "input")
@@ -23,7 +21,7 @@ export const Search = () => {
         )
       )
       .subscribe((value) => {
-        findTask$.next(value.trim())
+        setSearchTodo(value.trim())
       })
       return () => search$.unsubscribe()
     }
