@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Button } from '../../Add'
 
@@ -33,4 +34,10 @@ export function Todo({task, deleteTodo, completeTodo}){
       <DeleteButton type="button" onClick={() => deleteTodo(task.id)}>х</DeleteButton>
     </Task>
   )
+}
+
+Todo.propTypes ={
+  completeTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired
 }

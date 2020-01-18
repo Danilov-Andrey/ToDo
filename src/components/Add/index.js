@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const Form = styled.form`
   width: 80%;
@@ -64,4 +65,9 @@ export const Add = ({setTodos, todos}) => {
         {error ? <Error>{error}</Error> : null}
       </>
     )
+}
+
+Add.propTypes = {
+  setTodos: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired
 }

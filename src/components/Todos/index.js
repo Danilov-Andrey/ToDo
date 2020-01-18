@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Todo } from "./Todo"
  
@@ -7,7 +8,7 @@ const NoTasks = styled.p`
 `
 
 const Error = styled(NoTasks)`  
-`;
+`
 
 const Tasks = styled.ul`
   padding: 0;
@@ -76,4 +77,9 @@ export const Todos = ({searchTodo, todos}) => {
   }    
     
   return output
+}
+
+Todos.propTypes ={
+  searchTodo: PropTypes.string.isRequired,
+  todos: PropTypes.array.isRequired
 }

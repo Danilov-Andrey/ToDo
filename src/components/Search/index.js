@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fromEvent, of } from 'rxjs'
 import { delay, map, switchMap } from 'rxjs/operators'
@@ -28,6 +29,9 @@ export const Search = ({setSearchTodo}) => {
   )
     return (
       <Input placeholder="Find your favourite todo!" ref={searchRef} type="text"/>
-    )
-  
+    )  
+}
+
+Search.propTypes = {
+  setSearchTodo: PropTypes.func.isRequired
 }
