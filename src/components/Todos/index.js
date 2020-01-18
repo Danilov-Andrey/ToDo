@@ -72,7 +72,7 @@ export const Todos = ({searchTodo, todos}) => {
   } else {
     output = 
       <Tasks>
-        {tasks.map(task => <Todo task={task} completeTodo={onCompleteTodo} deleteTodo={onDeleteTodo}/>)}
+        {tasks.map(task => <Todo key={task.id} task={task} completeTodo={onCompleteTodo} deleteTodo={onDeleteTodo}/>)}
       </Tasks>
   }    
     

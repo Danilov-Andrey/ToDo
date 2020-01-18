@@ -1,34 +1,20 @@
-import React, { useEffect, useRef } from 'react'
+import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { fromEvent, of } from 'rxjs'
-import { delay, map, switchMap } from 'rxjs/operators'
-
+import _ from 'lodash'
+ 
 const Input = styled.input`
   width: 80%;
   margin: 0 auto;
 `
 
-export const Search = ({setSearchTodo}) => {  
-  const searchRef = useRef(null)
-  useEffect(() => {    
-    const search$ = fromEvent(searchRef.current, "input")
-    .pipe(
-        switchMap(userInput =>
-          of(userInput).pipe(
-            delay(1000),
-            map(userInput => userInput["target"].value)           
-          )
-        )
-      )
-      .subscribe((value) => {
-        setSearchTodo(value.trim())
-      })
-      return () => search$.unsubscribe()
-    }
-  )
-    return (
-      <Input placeholder="Find your favourite todo!" ref={searchRef} type="text"/>
+export const Search = ({setSearchTodo}) => {
+  const delayedQuery = useRef(_.debounce((value) => setSearchTodo(value), 1000)).current
+  const search = (e) => {
+    delayedQuery(e.target.value.trim())
+  }
+  return (
+      <Input placeholder="Find your favourite todo!" onChange={e => search(e)} type="text"/>
     )  
 }
 
