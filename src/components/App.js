@@ -16,8 +16,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
 `
 
-class App extends React.Component {  
-  render(){
+const App = () => {  
     return (
      <div className="App">
       <Header/>
@@ -28,7 +27,6 @@ class App extends React.Component {
       </Wrapper>
     </div>
     )
-  }
 }
 
 export default App;

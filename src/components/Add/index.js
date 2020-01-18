@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Subject } from 'rxjs';
 
@@ -27,54 +27,50 @@ const Error = styled.p`
 
 export const addTask$ = new Subject()
 
-export class Add extends React.Component { 
-  state = {
-    task: '',
-    error: null
-  }
+export const Add = () => { 
+  const [task, setTask] = useState('')
+  const [error, setError] = useState(null)
 
-  onAdd = (e) => {
+  const onAdd = (e) => {
     e.preventDefault()
-    const {task} = this.state;
     if (task.trim().length > 5){
       let tasks = JSON.parse(localStorage.getItem('tasks'))
       if( tasks === null ){
-        tasks = [{task, id: this.getRandomInt(), completed: false}]
+        tasks = [{task, id: getRandomInt(), completed: false}]
       } else {
-        tasks = [...tasks, {task, id: this.getRandomInt(), completed: false}]  
+        tasks = [...tasks, {task, id: getRandomInt(), completed: false}]  
       }
       localStorage.setItem('tasks', JSON.stringify(tasks)) 
       addTask$.next()
-      this.setState({task: '', error: null})      
+      setTask('')
+      setError(null)  
     } else {
-      this.setState({error: "At least 5 symbols"})      
+      setError("At least 5 symbols")      
     }
   }
 
-  getRandomInt = (max) =>  {
-  return Math.floor(Math.random() * Math.floor(10000)) + Date.now()
-}
+  const getRandomInt = () => {
+    return Math.floor(Math.random() * Math.floor(10000)) + Date.now()
+  }
 
 
-  userTask = (e) => { 
+  const userTask = (e) => { 
     if (e.target.value.length > 5){
-      this.setState({task: e.target.value, error: null})
+      setTask(e.target.value)
+      setError(null)  
     } else {
-      this.setState({task: e.target.value, error: "At least 5 symbols"})
+      setTask(e.target.value)
+      setError("At least 5 symbols")  
     }
-
   }
 
-  render(){
-    const {task, error} = this.state
     return(
       <>
-      <Form onSubmit={e => this.onAdd(e)}> 
-          <Input type="text" value={task} placeholder="Enter your important task!" onChange={e => this.userTask(e)}/>
+      <Form onSubmit={e => onAdd(e)}> 
+          <Input type="text" value={task} placeholder="Enter your important task!" onChange={e => userTask(e)}/>
           <Button type="submit">Add</Button>      
       </Form>
         {error ? <Error>{error}</Error> : null}
       </>
     )
-  }
 }

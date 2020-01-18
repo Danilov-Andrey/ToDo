@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { fromEvent, of, Subject } from 'rxjs'
 import { delay, map, switchMap } from 'rxjs/operators'
@@ -10,14 +10,10 @@ const Input = styled.input`
 
 export const findTask$ = new Subject()
 
-export class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.searchRef = React.createRef();
-  }
-
-  componentDidMount(){
-    this.search$ = fromEvent(this.searchRef.current, "input")
+export const Search = () => {  
+  const searchRef = useRef(null)
+  useEffect(() => {    
+    const search$ = fromEvent(searchRef.current, "input")
     .pipe(
         switchMap(userInput =>
           of(userInput).pipe(
@@ -28,16 +24,12 @@ export class Search extends React.Component {
       )
       .subscribe((value) => {
         findTask$.next(value.trim())
-      });
-  }
-
-  componentWillUnmount(){
-    this.search$.unsubscribe()
-  }
-
-  render(){
+      })
+      return () => search$.unsubscribe()
+    }
+  )
     return (
-      <Input placeholder="Find your favourite todo!" ref={this.searchRef} type="text"/>
+      <Input placeholder="Find your favourite todo!" ref={searchRef} type="text"/>
     )
-  }
+  
 }
