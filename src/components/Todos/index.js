@@ -16,45 +16,72 @@ const Tasks = styled.ul`
   margin: 0 auto;
 `
 
-export const Todos = ({searchTodo, todos}) => {
-  const [tasks, setTasks] = useState([])
+export const Todos = ({searchInputTodo, todos, setRootTodos}) => {
+  const [tasks, setCurrentTasks] = useState([])
   const [error, setError] = useState(null)
-
+  
   useEffect(() => {
-     
-      if (todos.length === 0) {
-        setError("No tasks were found!")
-        return
-      } 
-      if (searchTodo.length === 0) {
-        setError(null)
-        setTasks(todos)
-        return
-      }
-      const userTask = []
-      todos.map(task => {
-          if (task.task.toLowerCase().indexOf(searchTodo.toLowerCase()) !== -1){
-            userTask.push(task)
-          }
-          return null
-      })
-        
-      if (userTask.length === 0) {
-          setError("Task not found!")
-          return
-      }
-      
-      setTasks(userTask)
-      setError(null) 
-      }, [searchTodo, todos]  
+      if (checkAnyTodos()){
+        if (checkUserInputLength()){
+            searchTodo()
+        }
+      }    
+    }, [searchInputTodo, todos]  
   ) 
+  
+  const checkAnyTodos = () => {
+    if (todos.length === 0) {
+        setError("No tasks were found!")
+        return false
+    } 
+    return true
+  }
+  
+  const checkUserInputLength = () => {
+    if (searchInputTodo.length === 0) {
+        setError(null)
+        setCurrentTasks(todos)
+        return false
+    }
+    return true
+  }
+
+  const checkTodoAvailability = (userTask) => {
+    if (userTask.length === 0) {
+        setError("Task not found!")
+        return false
+    }
+    updateTodos(userTask)
+  }
+
+  const searchTodo = () => {
+    const userTask = []
+    todos.map(task => {
+      if (task.task.toLowerCase().indexOf(searchInputTodo.toLowerCase()) !== -1){
+          userTask.push(task)
+      }
+      return null
+    })
+    checkTodoAvailability(userTask)
+  }
+
+  const updateTodos = (userTask) => {
+    setCurrentTasks(userTask)
+    setError(null) 
+  }
+
+  const filterTodo = (todos, id) => {
+    return todos.filter(task => task.id !== id)
+  }
 
   const onDeleteTodo = (id) => {
-    setTasks(tasks.filter(task => task.id !== id))
+    setCurrentTasks(filterTodo(tasks, id))
+    setRootTodos(filterTodo(todos, id))
   }
 
   const onCompleteTodo = (id) => {
-    setTasks(tasks.map(task => setCompleted(task, id)))
+    setCurrentTasks(tasks.map(task => setCompleted(task, id)))
+    setRootTodos(todos.map(task => setCompleted(task, id)))
   }
 
   const setCompleted = (task, id) => {
@@ -81,5 +108,6 @@ export const Todos = ({searchTodo, todos}) => {
 
 Todos.propTypes ={
   searchTodo: PropTypes.string.isRequired,
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  setRootTodos: PropTypes.func.isRequired
 }

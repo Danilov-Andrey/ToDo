@@ -25,7 +25,7 @@ const Error = styled.p`
   margin-bottom: 0;
 `
 
-export const Add = ({setTodos, todos}) => { 
+export const Add = ({setRootTodos, todos}) => { 
   const [task, setTask] = useState('')
   const [error, setError] = useState(null)
 
@@ -33,7 +33,7 @@ export const Add = ({setTodos, todos}) => {
     e.preventDefault()
     if (task.trim().length > 5){
       const tasks = [...todos, {task, id: getRandomInt(), completed: false}]        
-      setTodos(tasks) 
+      setRootTodos(tasks) 
       setTask('')
       setError(null)  
     } else {
@@ -68,6 +68,6 @@ export const Add = ({setTodos, todos}) => {
 }
 
 Add.propTypes = {
-  setTodos: PropTypes.func.isRequired,
+  setRootTodos: PropTypes.func.isRequired,
   todos: PropTypes.array.isRequired
 }

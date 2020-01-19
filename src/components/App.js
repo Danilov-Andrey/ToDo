@@ -17,16 +17,16 @@ const Wrapper = styled.div`
 `
 
 const App = () => {  
-    const [searchTodo, setSearchTodo] = useState('')
-    const [todos, setTodos] = useState([])
+    const [searchInputTodo, setSearchTodo] = useState('')
+    const [todos, setRootTodos] = useState([])
 
     return (
      <div className="App">
       <Header/>
       <Wrapper>
         <Search setSearchTodo={setSearchTodo}/>
-        <Add setTodos={setTodos} todos={todos}/>
-        <Todos searchTodo={searchTodo} todos={todos}/>
+        <Add setRootTodos={setRootTodos} todos={todos}/>
+        <Todos searchInputTodo={searchInputTodo} todos={todos} setRootTodos={setRootTodos}/>
       </Wrapper>
     </div>
     )
