@@ -75,12 +75,16 @@ export const Todos = ({searchInputTodo, todos, setRootTodos}) => {
   }
 
   const onDeleteTodo = (id) => {
-    setCurrentTasks(filterTodo(tasks, id))
+    if (searchInputTodo.length !== 0){
+      setCurrentTasks(filterTodo(tasks, id))
+    }
     setRootTodos(filterTodo(todos, id))
   }
 
   const onCompleteTodo = (id) => {
-    setCurrentTasks(tasks.map(task => setCompleted(task, id)))
+    if (searchInputTodo.length !== 0){
+      setCurrentTasks(tasks.map(task => setCompleted(task, id)))
+    }
     setRootTodos(todos.map(task => setCompleted(task, id)))
   }
 
@@ -107,7 +111,7 @@ export const Todos = ({searchInputTodo, todos, setRootTodos}) => {
 }
 
 Todos.propTypes ={
-  searchTodo: PropTypes.string.isRequired,
+  searchInputTodo: PropTypes.string.isRequired,
   todos: PropTypes.array.isRequired,
   setRootTodos: PropTypes.func.isRequired
 }
