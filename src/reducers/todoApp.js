@@ -1,8 +1,10 @@
+import { ADD_TODO, DELETE_TODO, COMPLETE_TODO } from '../actions/actionTypes';
+
 const initialState = { todos: [] };
 
 export const todoApp = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case ADD_TODO:
       return {
         ...state,
         todos: [
@@ -10,12 +12,12 @@ export const todoApp = (state = initialState, action) => {
           { id: new Date(), text: action.payload, completed: false }
         ]
       };
-    case 'DELETE_TODO':
+    case DELETE_TODO:
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload)
       };
-    case 'COMPLETE_TODO':
+    case COMPLETE_TODO:
       return {
         ...state,
         todos: state.todos.map(todo =>
