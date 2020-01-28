@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Header } from './Header'
-import { Search } from './Search'
-import { Todos } from './Todos'
-import { Add } from './Add'
-import './App.css'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Header } from './Header';
+import { Search } from './Search';
+import Todos from './Todos';
+import Add from './Add';
+import './App.css';
 
 const Wrapper = styled.div`
   background-color: #bc2c3d;
@@ -14,22 +14,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-`
+`;
 
-const App = () => {  
-    const [searchInputTodo, setSearchTodo] = useState('')
-    const [todos, setRootTodos] = useState([])
-
-    return (
-     <div className="App">
-      <Header/>
+const App = () => {
+  return (
+    <div className="App">
+      <Header />
       <Wrapper>
-        <Search setSearchTodo={setSearchTodo}/>
-        <Add setRootTodos={setRootTodos} todos={todos}/>
-        <Todos searchInputTodo={searchInputTodo} todos={todos} setRootTodos={setRootTodos}/>
+        <Search />
+        <Add />
+        <Todos />
       </Wrapper>
     </div>
-    )
-}
+  );
+};
 
 export default App;

@@ -1,117 +1,74 @@
-import React, { useState, useEffect } from "react"
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { Todo } from "./Todo"
- 
-const NoTasks = styled.p`
-  margin-bottom: 0; 
-`
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Todo } from './Todo';
+import { connect } from 'react-redux';
+import { completeTodo, deleteTodo } from '../../actions/actionCreators';
 
-const Error = styled(NoTasks)`  
-`
+const NoTasks = styled.p`
+  margin-bottom: 0;
+`;
+
+const Error = styled(NoTasks)``;
 
 const Tasks = styled.ul`
   padding: 0;
   width: 80%;
   margin: 0 auto;
-`
+`;
 
-export const Todos = ({searchInputTodo, todos, setRootTodos}) => {
-  const [tasks, setCurrentTasks] = useState([])
-  const [error, setError] = useState(null)
-  
-  useEffect(() => {
-      if (checkAnyTodos()){
-        if (checkUserInputLength()){
-            searchTodo()
-        }
-      }    
-    }, [searchInputTodo, todos]  
-  ) 
-  
+const Todos = ({ todos, onCompleteTodo, onDeleteTodo }) => {
+  const [tasks, setCurrentTasks] = useState([]);
+  const [error, setError] = useState(null);
+
   const checkAnyTodos = () => {
     if (todos.length === 0) {
-        setError("No tasks were found!")
-        return false
-    } 
-    return true
-  }
-  
-  const checkUserInputLength = () => {
-    if (searchInputTodo.length === 0) {
-        setError(null)
-        setCurrentTasks(todos)
-        return false
+      setError('No tasks were found!');
+    } else {
+      setError(null);
     }
-    return true
-  }
+  };
 
-  const checkTodoAvailability = (userTask) => {
-    if (userTask.length === 0) {
-        setError("Task not found!")
-        return false
-    }
-    updateTodos(userTask)
-  }
-
-  const searchTodo = () => {
-    const userTask = []
-    todos.map(task => {
-      if (task.task.toLowerCase().indexOf(searchInputTodo.toLowerCase()) !== -1){
-          userTask.push(task)
-      }
-      return null
-    })
-    checkTodoAvailability(userTask)
-  }
-
-  const updateTodos = (userTask) => {
-    setCurrentTasks(userTask)
-    setError(null) 
-  }
-
-  const filterTodo = (todos, id) => {
-    return todos.filter(task => task.id !== id)
-  }
-
-  const onDeleteTodo = (id) => {
-    if (searchInputTodo.length !== 0){
-      setCurrentTasks(filterTodo(tasks, id))
-    }
-    setRootTodos(filterTodo(todos, id))
-  }
-
-  const onCompleteTodo = (id) => {
-    if (searchInputTodo.length !== 0){
-      setCurrentTasks(tasks.map(task => setCompleted(task, id)))
-    }
-    setRootTodos(todos.map(task => setCompleted(task, id)))
-  }
-
-  const setCompleted = (task, id) => {
-      if (task.id === id){
-        task = {...task, completed: !task.completed}
-      }
-      return task
-  }
+  useEffect(() => {
+    checkAnyTodos();
+  }, [checkAnyTodos, todos]);
 
   let output;
   if (error !== null) {
-      output = <Error>{error}</Error>
-  } else if (tasks.length === 0) {
-      output = <NoTasks>No tasks</NoTasks>
+    output = <Error>{error}</Error>;
+  } else if (todos.length === 0) {
+    output = <NoTasks>No tasks</NoTasks>;
   } else {
-    output = 
+    output = (
       <Tasks>
-        {tasks.map(task => <Todo key={task.id} task={task} completeTodo={onCompleteTodo} deleteTodo={onDeleteTodo}/>)}
+        {todos.map(task => (
+          <Todo
+            key={task.id}
+            task={task}
+            onCompleteTodo={onCompleteTodo}
+            onDeleteTodo={onDeleteTodo}
+          />
+        ))}
       </Tasks>
-  }    
-    
-  return output
-}
+    );
+  }
 
-Todos.propTypes ={
-  searchInputTodo: PropTypes.string.isRequired,
-  todos: PropTypes.array.isRequired,
-  setRootTodos: PropTypes.func.isRequired
-}
+  return output;
+};
+
+Todos.propTypes = {
+  todos: PropTypes.array.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    todos: state.todos
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  onCompleteTodo: id => dispatch(completeTodo(id)),
+  onDeleteTodo: id => dispatch(deleteTodo(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
