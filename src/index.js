@@ -24,7 +24,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, todoApp);
 
-export const store = createStore(
+const store = createStore(
   combineReducers({
     appTodos: persistedReducer,
     searchTodo
