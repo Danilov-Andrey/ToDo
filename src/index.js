@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import { Provider } from 'react-redux';
 import { todoApp } from './reducers/todoApp';
 import { searchTodo } from './reducers/searchTodo';
@@ -29,6 +30,7 @@ const persistedReducer = persistReducer(persistConfig, todoApp);
 const store = createStore(
   combineReducers({
     appTodos: persistedReducer,
+    form: formReducer,
     searchTodo
   }),
   composeEnhancers(applyMiddleware(thunk))

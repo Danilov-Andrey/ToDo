@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReduxForm } from '../Forms/ReduxForm';
+import ReduxForm from '../Forms/ReduxForm';
 import { FormikForm } from '../Forms/FormikForm';
 
 const FormWrapper = styled.div``;

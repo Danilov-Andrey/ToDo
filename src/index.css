@@ -21,9 +21,14 @@ input {
 p,
 li,
 a,
-h1 {
+h1,
+label {
   color: #f8f3e6;
   text-decoration: none;
+}
+
+label {
+  text-align: left;
 }
 
 button {

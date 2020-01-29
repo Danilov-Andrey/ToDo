@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ErrorMessage } from '../ErrorMessage';
 import { validate } from './validator';
 
-const Button = styled.button`
+export const Button = styled.button`
   background-color: #bc2c3d;
   border: none;
   padding: 10px;
@@ -23,7 +23,7 @@ const Button = styled.button`
   }
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -72,8 +72,9 @@ export const FormikForm = () => {
           isSubmitting
         }) => (
           <Form onSubmit={handleSubmit}>
+            <label>First name</label>
             <input
-              placeholder="Name"
+              placeholder="First name"
               type="text"
               name="name"
               onChange={handleChange}
@@ -83,8 +84,9 @@ export const FormikForm = () => {
             {errors.name && touched.name ? (
               <ErrorMessage>{errors.name}</ErrorMessage>
             ) : null}
+            <label>Last name</label>
             <input
-              placeholder="Surname"
+              placeholder="Last name"
               type="text"
               name="surname"
               onChange={handleChange}
@@ -94,6 +96,7 @@ export const FormikForm = () => {
             {errors.surname && touched.surname ? (
               <ErrorMessage>{errors.surname}</ErrorMessage>
             ) : null}
+            <label>Phone</label>
             <input
               placeholder="+7(999)999-99-99"
               type="text"
@@ -105,6 +108,7 @@ export const FormikForm = () => {
             {errors.phone && touched.phone ? (
               <ErrorMessage>{errors.phone}</ErrorMessage>
             ) : null}
+            <label>Email</label>
             <input
               placeholder="Email"
               type="email"
@@ -116,6 +120,7 @@ export const FormikForm = () => {
             {errors.email && touched.email ? (
               <ErrorMessage>{errors.email}</ErrorMessage>
             ) : null}
+            <label>Message</label>
             <textarea
               rows="5"
               placeholder="Message"
