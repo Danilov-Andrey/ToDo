@@ -7,6 +7,14 @@ const DeleteButton = styled(Button)`
   background-color: #ec9393;
   width: 20px;
   height: 20px;
+  &:hover {
+    background-color: #ff7d7d;
+    transition: all 0.2s ease-in-out;
+  }
+  &:active {
+    transform: scale(0.95);
+    transition: all 0.1s ease-in-out;
+  }
 `;
 
 const Task = styled.li`

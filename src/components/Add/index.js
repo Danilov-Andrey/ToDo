@@ -21,6 +21,16 @@ export const Button = styled.button`
   border: 0;
   background-color: #efd2bc;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  &:hover {
+    background-color: #f9e5d5;
+    transition: all 0.2s ease-in-out;
+  }
+  &:active {
+    transform: scale(0.95);
+    transition: all 0.1s ease-in-out;
+  }
 `;
 
 const Error = styled.p`
