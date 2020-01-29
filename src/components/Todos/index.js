@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Total from './Total';
 import { Todo } from './Todo';
 import { connect } from 'react-redux';
 import { completeTodo, deleteTodo } from '../../actions/todoActionCreators';
@@ -49,6 +50,7 @@ const Todos = ({
             onDeleteTodo={onDeleteTodo}
           />
         ))}
+        <Total />
       </Tasks>
     );
   }

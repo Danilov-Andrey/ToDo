@@ -10,7 +10,7 @@ const DeleteButton = styled(Button)`
 `;
 
 const Task = styled.li`
-  margin: 16px auto 0 auto;
+  margin: 16px auto 16px auto;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -30,7 +30,10 @@ const Text = styled.span`
 export function Todo({ task, onDeleteTodo, onCompleteTodo }) {
   return (
     <Task>
-      <Text lineThrough={task.completed} onClick={() => onCompleteTodo(task.id)}>
+      <Text
+        lineThrough={task.completed}
+        onClick={() => onCompleteTodo(task.id)}
+      >
         {task.text}
       </Text>
       <DeleteButton type="button" onClick={() => onDeleteTodo(task.id)}>
