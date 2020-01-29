@@ -27,14 +27,15 @@ const Error = styled.p`
   margin-bottom: 0;
 `;
 
-const Add = props => {
+const Add = ({ onAddTodo }) => {
   const [task, setTask] = useState('');
   const [error, setError] = useState(null);
 
   const onAdd = e => {
     e.preventDefault();
     if (task.trim().length > 5) {
-      props.onAddTodo(task.trim());
+      onAddTodo(task.trim());
+      setTask('');
     } else {
       setError('At least 5 symbols');
     }
@@ -49,8 +50,6 @@ const Add = props => {
       setError('At least 5 symbols');
     }
   };
-
-  console.log(props);
 
   return (
     <>

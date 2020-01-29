@@ -17,31 +17,31 @@ const Tasks = styled.ul`
   margin: 0 auto;
 `;
 
-const Todos = ({ todos, onCompleteTodo, onDeleteTodo }) => {
-  const [tasks, setCurrentTasks] = useState([]);
+const Todos = ({
+  todos,
+  searchTodo,
+  onCompleteTodo,
+  onDeleteTodo,
+  searchError
+}) => {
   const [error, setError] = useState(null);
 
-  const checkAnyTodos = () => {
-    if (todos.length === 0) {
+  useEffect(() => {
+    if (todos.length === 0 && searchTodo.length === 0) {
       setError('No tasks were found!');
     } else {
       setError(null);
     }
-  };
-
-  useEffect(() => {
-    checkAnyTodos();
-  }, [checkAnyTodos, todos]);
+  }, [searchTodo, todos]);
 
   let output;
-  if (error !== null) {
-    output = <Error>{error}</Error>;
-  } else if (todos.length === 0) {
-    output = <NoTasks>No tasks</NoTasks>;
+  if (error !== null || searchError !== null) {
+    output = <Error>{error || searchError}</Error>;
   } else {
+    const renderedTodo = searchTodo.length === 0 ? todos : searchTodo;
     output = (
       <Tasks>
-        {todos.map(task => (
+        {renderedTodo.map(task => (
           <Todo
             key={task.id}
             task={task}
@@ -60,9 +60,11 @@ Todos.propTypes = {
   todos: PropTypes.array.isRequired
 };
 
-const mapStateToProps = ({ appTodos }) => {
+const mapStateToProps = ({ appTodos, searchTodo }) => {
   return {
-    todos: appTodos.todos
+    todos: appTodos.todos,
+    searchTodo: searchTodo.todo,
+    searchError: searchTodo.searchError
   };
 };
 

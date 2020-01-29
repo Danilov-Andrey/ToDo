@@ -31,7 +31,9 @@ Search.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    findTodo: text => dispatch(searchTodo(text))
+    findTodo: text => {
+      dispatch(searchTodo(text));
+    }
   };
 };
 

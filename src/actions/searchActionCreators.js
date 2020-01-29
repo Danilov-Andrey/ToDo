@@ -1,5 +1,10 @@
 import { SEARCH_TODO } from './types/searchActionTypes';
 
-export const searchTodo = text => {
-  return { type: SEARCH_TODO, payload: text };
-};
+export function searchTodo(text) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SEARCH_TODO,
+      payload: { text, todos: getState().appTodos.todos }
+    });
+  };
+}
