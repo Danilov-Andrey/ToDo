@@ -20,7 +20,12 @@ input {
 
 p,
 li,
-a {
+a,
+h1 {
   color: #f8f3e6;
   text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }

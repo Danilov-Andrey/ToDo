@@ -26,7 +26,7 @@ const Search = ({ findTodo }) => {
 };
 
 Search.propTypes = {
-  setSearchTodo: PropTypes.func.isRequired
+  findTodo: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => {

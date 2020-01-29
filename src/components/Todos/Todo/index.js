@@ -52,7 +52,7 @@ export function Todo({ task, onDeleteTodo, onCompleteTodo }) {
 }
 
 Todo.propTypes = {
-  completeTodo: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired,
+  onCompleteTodo: PropTypes.func.isRequired,
+  onDeleteTodo: PropTypes.func.isRequired,
   task: PropTypes.object.isRequired
 };

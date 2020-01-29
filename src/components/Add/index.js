@@ -78,8 +78,7 @@ const Add = ({ onAddTodo }) => {
 };
 
 Add.propTypes = {
-  setRootTodos: PropTypes.func.isRequired,
-  todos: PropTypes.array.isRequired
+  onAddTodo: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => {
