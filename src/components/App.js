@@ -5,6 +5,9 @@ import Search from './Search';
 import Todos from './Todos';
 import Add from './Add';
 import './App.css';
+import { Navigation } from './Navigation';
+import { Switch, Route } from 'react-router-dom';
+import { Feedback } from './Feedback';
 
 const Wrapper = styled.div`
   background-color: #bc2c3d;
@@ -19,12 +22,20 @@ const Wrapper = styled.div`
 const App = () => {
   return (
     <div className="App">
+      <Navigation />
       <Header />
-      <Wrapper>
-        <Search />
-        <Add />
-        <Todos />
-      </Wrapper>
+      <Switch>
+        <Route exact path="/">
+          <Wrapper>
+            <Search />
+            <Add />
+            <Todos />
+          </Wrapper>
+        </Route>
+        <Route path="/feedback">
+          <Feedback />
+        </Route>
+      </Switch>
     </div>
   );
 };
