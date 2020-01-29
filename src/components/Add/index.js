@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addTodo } from '../../actions/actionCreators';
+import { addTodo } from '../../actions/todoActionCreators';
 
 const Form = styled.form`
   width: 80%;

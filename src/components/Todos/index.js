@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Todo } from './Todo';
 import { connect } from 'react-redux';
-import { completeTodo, deleteTodo } from '../../actions/actionCreators';
+import { completeTodo, deleteTodo } from '../../actions/todoActionCreators';
 
 const NoTasks = styled.p`
   margin-bottom: 0;
@@ -60,9 +60,9 @@ Todos.propTypes = {
   todos: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ appTodos }) => {
   return {
-    todos: state.todos
+    todos: appTodos.todos
   };
 };
 

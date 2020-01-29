@@ -1,6 +1,10 @@
-import { ADD_TODO, DELETE_TODO, COMPLETE_TODO } from '../actions/actionTypes';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  COMPLETE_TODO
+} from '../actions/types/todoActionTypes';
 
-const initialState = { todos: [] };
+export const initialState = { todos: [] };
 
 export const todoApp = (state = initialState, action) => {
   switch (action.type) {

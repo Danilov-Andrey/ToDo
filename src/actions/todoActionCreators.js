@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, COMPLETE_TODO } from './actionTypes';
+import { ADD_TODO, DELETE_TODO, COMPLETE_TODO } from './types/todoActionTypes';
 
 export const addTodo = text => {
   return { type: ADD_TODO, payload: text };

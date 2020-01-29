@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Header } from './Header';
-import { Search } from './Search';
+import Search from './Search';
 import Todos from './Todos';
 import Add from './Add';
 import './App.css';
