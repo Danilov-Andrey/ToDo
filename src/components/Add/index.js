@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addTodo } from '../../actions/todoActionCreators';
@@ -12,6 +12,11 @@ const Form = styled.form`
 
 const Input = styled.input`
   width: 80%;
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+    `}
 `;
 
 export const Button = styled.button`
@@ -31,13 +36,22 @@ export const Button = styled.button`
     transform: scale(0.95);
     transition: all 0.1s ease-in-out;
   }
+  ${props =>
+    props.disabled &&
+    css`
+      cursor: not-allowed;
+      background-color: #b3aaa3;
+      &:hover {
+        background-color: #b3aaa3;
+      }
+    `}
 `;
 
 const Error = styled.p`
   margin-bottom: 0;
 `;
 
-const Add = ({ onAddTodo }) => {
+const Add = ({ onAddTodo, searchMode }) => {
   const [task, setTask] = useState('');
   const [error, setError] = useState(null);
 
@@ -65,12 +79,15 @@ const Add = ({ onAddTodo }) => {
     <>
       <Form onSubmit={e => onAdd(e)}>
         <Input
+          disabled={searchMode}
           type="text"
           value={task}
           placeholder="Enter your important task!"
           onChange={e => userTask(e)}
         />
-        <Button type="submit">Add</Button>
+        <Button disabled={searchMode} type="submit">
+          Add
+        </Button>
       </Form>
       {error ? <Error>{error}</Error> : null}
     </>
@@ -78,7 +95,8 @@ const Add = ({ onAddTodo }) => {
 };
 
 Add.propTypes = {
-  onAddTodo: PropTypes.func.isRequired
+  onAddTodo: PropTypes.func.isRequired,
+  searchMode: PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = dispatch => {
@@ -89,4 +107,10 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Add);
+const mapStateToProps = ({ searchTodo }) => {
+  return {
+    searchMode: searchTodo.searchMode
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Add);

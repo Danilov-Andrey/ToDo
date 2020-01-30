@@ -2,7 +2,8 @@ import { SEARCH_TODO } from '../actions/types/searchActionTypes';
 
 const initialState = {
   todo: [],
-  searchError: null
+  searchError: null,
+  searchMode: false
 };
 
 export const searchTodo = (state = initialState, action) => {
@@ -21,10 +22,12 @@ export const searchTodo = (state = initialState, action) => {
       if (filteredTodos.length === 0) {
         return {
           ...state,
+          searchMode: true,
           searchError: 'Todo not found'
         };
       }
       return {
+        searchMode: true,
         searchError: null,
         todo: filteredTodos
       };
