@@ -1,43 +1,40 @@
-import React from 'react'
-import styled from 'styled-components'
-import { fromEvent, of, Subject } from 'rxjs'
-import { delay, map, switchMap } from 'rxjs/operators'
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import _ from 'lodash';
+import { connect } from 'react-redux';
+import { searchTodo } from '../../actions/searchActionCreators';
 
 const Input = styled.input`
   width: 80%;
   margin: 0 auto;
-`
+`;
 
-export const findTask$ = new Subject()
+const Search = ({ findTodo }) => {
+  const delayedQuery = useRef(_.debounce(value => findTodo(value), 1000))
+    .current;
+  const search = e => {
+    delayedQuery(e.target.value.trim());
+  };
+  return (
+    <Input
+      placeholder="Find your favourite todo!"
+      onChange={e => search(e)}
+      type="text"
+    />
+  );
+};
 
-export class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.searchRef = React.createRef();
-  }
+Search.propTypes = {
+  findTodo: PropTypes.func.isRequired
+};
 
-  componentDidMount(){
-    this.search$ = fromEvent(this.searchRef.current, "input")
-    .pipe(
-        switchMap(userInput =>
-          of(userInput).pipe(
-            delay(1000),
-            map(userInput => userInput["target"].value)           
-          )
-        )
-      )
-      .subscribe((value) => {
-        findTask$.next(value.trim())
-      });
-  }
+const mapDispatchToProps = dispatch => {
+  return {
+    findTodo: text => {
+      dispatch(searchTodo(text));
+    }
+  };
+};
 
-  componentWillUnmount(){
-    this.search$.unsubscribe()
-  }
-
-  render(){
-    return (
-      <Input placeholder="Find your favourite todo!" ref={this.searchRef} type="text"/>
-    )
-  }
-}
+export default connect(null, mapDispatchToProps)(Search);
