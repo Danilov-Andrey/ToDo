@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import {
   getTotalTodos,
   getActiveTodos,
@@ -38,6 +39,12 @@ const mapStateToProps = state => {
     active: getActiveTodos(state),
     finished: getFinishedTodos(state)
   };
+};
+
+Total.propTypes = {
+  total: PropTypes.number.isRequired,
+  active: PropTypes.number.isRequired,
+  finished: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps, null)(Total);

@@ -59,7 +59,11 @@ const Todos = ({
 };
 
 Todos.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.array.isRequired,
+  searchTodo: PropTypes.array.isRequired,
+  onCompleteTodo: PropTypes.func.isRequired,
+  onDeleteTodo: PropTypes.func.isRequired,
+  searchError: PropTypes.string
 };
 
 const mapStateToProps = ({ appTodos, searchTodo }) => {

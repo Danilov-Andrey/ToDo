@@ -3,6 +3,7 @@ import { Field, reduxForm, reset } from 'redux-form';
 import { Form, Button } from '../FormikForm';
 import { renderInput, renderTextarea } from './fields';
 import { validate } from '../Validator';
+import PropTypes from 'prop-types';
 
 const ReduxForm = props => {
   const { handleSubmit, submitting } = props;
@@ -51,6 +52,10 @@ const ReduxForm = props => {
       </Form>
     </>
   );
+};
+
+ReduxForm.propTypes = {
+  props: PropTypes.object.isRequired
 };
 
 const initialForm = {
