@@ -1,65 +1,50 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
+import { Field, reduxForm, reset } from 'redux-form';
 import { Form, Button } from '../FormikForm';
+import { renderInput, renderTextarea } from './fields';
+import { validate } from '../Validator';
 
 const ReduxForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
-  console.log(props);
+  const { handleSubmit, submitting } = props;
   return (
     <>
-      <h1>Redux</h1>
+      <h1>ReduxForm</h1>
       <Form onSubmit={handleSubmit}>
         <label>First name</label>
         <Field
-          component="input"
-          placeholder="First name"
+          component={renderInput}
+          label="First name"
           type="text"
           name="name"
         />
-        {/* {errors.name && touched.name ? (
-          <ErrorMessage>{errors.name}</ErrorMessage>
-        ) : null} */}
+
         <label>Last name</label>
         <Field
-          component="input"
-          placeholder="Last name"
+          component={renderInput}
+          label="Last name"
           type="text"
           name="surname"
         />
-        {/* {errors.surname && touched.surname ? (
-          <ErrorMessage>{errors.surname}</ErrorMessage>
-        ) : null} */}
+
         <label>Phone</label>
         <Field
-          component="input"
-          placeholder="+7(999)999-99-99"
+          component={renderInput}
+          label="+7(999)999-99-99"
           type="text"
           name="phone"
         />
-        {/* {errors.phone && touched.phone ? (
-          <ErrorMessage>{errors.phone}</ErrorMessage>
-        ) : null} */}
+
         <label>Email</label>
         <Field
-          component="input"
-          placeholder="Email"
+          component={renderInput}
+          label="Email"
           type="email"
           name="email"
         />
-        {/* {errors.email && touched.email ? (
-          <ErrorMessage>{errors.email}</ErrorMessage>
-        ) : null} */}
+
         <label>Message</label>
-        <Field
-          component="textarea"
-          rows="5"
-          placeholder="Message"
-          name="message"
-        />
-        {/* {errors.message && touched.message ? (
-          <ErrorMessage>{errors.message}</ErrorMessage>
-        ) : null} */}
+        <Field component={renderTextarea} label="Message" name="message" />
+
         <Button type="submit" disabled={submitting}>
           Send
         </Button>
@@ -76,12 +61,14 @@ const initialForm = {
   message: ''
 };
 
-const onSubmit = (values,dispatch) => {
-  console.log(values)
-}
+const onSubmit = (values, dispatch) => {
+  window.alert(JSON.stringify(values, 2, 1));
+  dispatch(reset('feedback'));
+};
 
 export default reduxForm({
   form: 'feedback',
   onSubmit,
+  validate,
   initialValues: initialForm
 })(ReduxForm);

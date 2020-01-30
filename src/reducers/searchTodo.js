@@ -13,11 +13,11 @@ export const searchTodo = (state = initialState, action) => {
         return initialState;
       }
       const filteredTodos = [];
-      todos.map(todo => {
-        if (todo.text.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
-          filteredTodos.push(todo);
-        }
-      });
+      todos.map(todo =>
+        todo.text.toLowerCase().indexOf(text.toLowerCase()) !== -1
+          ? filteredTodos.push(todo)
+          : null
+      );
       if (filteredTodos.length === 0) {
         return {
           ...state,

@@ -23,9 +23,9 @@ const App = () => {
   return (
     <div className="App">
       <Navigation />
-      <Header />
       <Switch>
         <Route exact path="/">
+          <Header />
           <Wrapper>
             <Search />
             <Add />

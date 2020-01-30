@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import styled from 'styled-components';
 import { ErrorMessage } from '../ErrorMessage';
-import { validate } from './validator';
+import { validate } from '../Validator';
 
 export const Button = styled.button`
   background-color: #bc2c3d;
@@ -50,8 +50,9 @@ const initialForm = {
 };
 
 export const FormikForm = () => {
-  const onSubmit = (values, { setSubmitting }) => {
-    console.log(values);
+  const onSubmit = (values, { setSubmitting, resetForm }) => {
+    window.alert(JSON.stringify(values, 2, 1));
+    resetForm();
   };
 
   return (
