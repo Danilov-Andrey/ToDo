@@ -55,7 +55,7 @@ const ReduxForm = props => {
 };
 
 ReduxForm.propTypes = {
-  props: PropTypes.object.isRequired
+  props: PropTypes.object
 };
 
 const initialForm = {
